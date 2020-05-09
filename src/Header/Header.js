@@ -1,25 +1,27 @@
-import React from 'react'
-import Button from '../formComponents'
-import 'Header.css'
+import React, { Fragment } from 'react';
+import Button from '../FormComponents/Button';
+import './Header.css'
 
 export default function Header (props) {
-    if (props.nav) {
-        let navProps = 
-            <Button
-                name={nav.props.name}
-                id={nav.id}
-                className='nav'
-                onClick={nav.onClick}
-            />;
-        return navProps
-    } else {
-        let navProps = <></>;
-        return navProps;
-    };  
-    return(
-        <Fragment>
-            <h1>{props.name}</h1>
-            {navProps}
-        </Fragment>
-    )
+let navProps = props.nav;
+if (navProps) {
+let navProps = 
+    <Button
+        name={navProps.name}
+        id={navProps.id}
+        className='nav'
+        onClick={navProps.onClick}
+    />;
+    return navProps;
+} else {
+   let navProps = <></>;
+   return navProps;
+}; 
+return(
+    <Fragment>
+        <h1>{props.name}</h1>
+        {navProps}
+         
+    </Fragment>
+);
 }
