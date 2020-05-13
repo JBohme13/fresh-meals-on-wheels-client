@@ -6,6 +6,7 @@ export default function Button(props){
         <button
             id='button'
             onClick={props.onClick}
+            type={props.type}
         >
             {props.name}
         </button>
