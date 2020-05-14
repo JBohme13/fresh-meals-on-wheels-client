@@ -1,11 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
 import Header from './Header/Header';
-import Login from './Login/Login';
+import Home from './Home/Home';
+import MealsHome from './Meals/MealsHome';
 import VolunteerSignUpForm from './Volunteer/VolunteerSignUp/VolunteerSignUpForm';
 import VolunteerHome from './Volunteer/VolunteerHome';
 import VolunteerLogin from './Volunteer/VolunteerLogin';
 import VolunteerInfo from './Volunteer/VolunteerInfo';
+import AdminLogin from './Admin/AdminLogin';
 import Main from './Main/Main';
 
 function App() {
@@ -13,8 +15,14 @@ function App() {
     {
       path: '/',
       exact: true,
-      main: Login,
+      main: Home,
       header: Header,
+    },
+    {
+      path: '/meals',
+      exact: true,
+      main: MealsHome,
+      header: Header
     },
     {
       path: '/volunteer',
@@ -39,6 +47,12 @@ function App() {
       exact: false,
       main: VolunteerLogin,
       header: Header
+    },
+    {
+      path: '/admin',
+      exact: true,
+      main: AdminLogin,
+      header: Header
     }
   ];
 
@@ -46,7 +60,7 @@ function App() {
     {
       id:'mainNavHome',
       name:'Home',
-      to:'/home',
+      to:'/',
     },
     {
       id:'mainNavMeals',

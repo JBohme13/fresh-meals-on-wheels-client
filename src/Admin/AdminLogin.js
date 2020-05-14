@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import TextInput from '../FormComponents/TextInput';
 import Button from '../FormComponents/Button';
-import SubBanner from '../LayoutComponents/SubBanner';
 
 export default function Login(props) {
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const [adminUserName, setAdminUserName] = useState('');
+    const [adminPassword, setAdminPassword] = useState('');
 
-    function handleUserNameChange(input) {
-        setUserName(input);
-    }
-
-    function handlePasswordChange(input) {
-        setPassword(input);
+    const handleUserNameChange = input => setAdminUserName(input);
+    const handlePasswordChange = input => setAdminPassword(input);
+    const handleAdminLogin = e => {
+        e.preventDefault();
+        //Fetch admin login here
     }
 
     return (
@@ -35,12 +33,7 @@ export default function Login(props) {
             />
             <Button
                 name='Login'
-                //onClick={this.handleLoginClick}
-            />
-            <SubBanner name='New to Meals on Wheels? Click Register below to Sign up!'/>
-            <Button
-                name='Register' 
-                //onClick={this.handleRegisterClick}
+                onClick={e => handleAdminLogin(e.target.value)}
             />
         </form>
     )

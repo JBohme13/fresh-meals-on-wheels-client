@@ -10,6 +10,7 @@ export default function Header(props) {
                 return(
                     <NavLink
                         key={i}
+                        className='mainNav'
                         id={nav.id}
                         to={nav.to}
                     >

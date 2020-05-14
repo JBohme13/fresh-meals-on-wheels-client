@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './VolunteerNavBar.css';
 
 export default function VolunteerNavBar() {
     return(

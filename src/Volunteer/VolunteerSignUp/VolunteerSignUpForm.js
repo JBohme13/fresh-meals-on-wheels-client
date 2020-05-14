@@ -107,7 +107,7 @@ export default function VolunteerSignUpForm() {
             refRelationship1: refRelationship1,
             refPhone1: refPhone1,
             refAddress1: refAddress1,
-            refName2, refName2,
+            refName2: refName2,
             refRelationship2: refRelationship2,
             refPhone2: refPhone2,
             refAddress2: refAddress2
@@ -123,7 +123,7 @@ export default function VolunteerSignUpForm() {
             lastMinuteList: lastMinuteList,
             subPreferences: subPreferences
         }
-        const signature = {
+        const signatureInfo = {
             signatue: signature,
             signatureDate: signatureDate
         }
@@ -168,7 +168,7 @@ export default function VolunteerSignUpForm() {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(signature),
+                body: JSON.stringify(signatureInfo),
             })
         ])
         .then(([contactRes, personalRes, emergencyRes, autoRes, signatureRes]) => {
