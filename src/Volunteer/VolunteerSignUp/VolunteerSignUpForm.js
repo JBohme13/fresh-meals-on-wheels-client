@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from 'react'
+import UserInfo from './UserInfo';
 import ContactInfo from './ContactInfo';
 import PersonalInfo from './PersonalInfo';
 import EmergencyContact from './EmergencyContact';
@@ -9,9 +10,13 @@ import VolunteerNavBar from '../VolunteerNavBar';
 import SectionBanner from '../../LayoutComponents/SectionBanner';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import Button from '../../FormComponents/Button';
-
+import './VolunteerSignUpForm.css';
 
 export default function VolunteerSignUpForm() {
+    const apiUrl = 'localhost:8000';
+    //user info state variables
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     //Contact info state variables
     const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
@@ -22,7 +27,7 @@ export default function VolunteerSignUpForm() {
     const [homePhone, setHomePhone] = useState('');
     const [cellPhone, setCellPhone] = useState('');
     const [workPhone, setWorkPhone] = useState('');
-    const [prefPhone, setPrefPhone] = useState('Home');
+    const [prefPhone, setPrefPhone] = useState('home');
     const [email, setEmail] = useState('');
     const [birthdate, setBirthDate] = useState('');
     const [newsletterPref, setNewsletterPref] = useState('email');
@@ -52,7 +57,7 @@ export default function VolunteerSignUpForm() {
     const [refRelationship2, setRefRelationship2] = useState('');
     const [refPhone2, setRefPhone2] = useState('');
     const [refAddress2, setRefAddress2] = useState('');
-    //Auto info state variables
+    //Driver info state variables
     const [driver, setDriver] = useState('');
     const [licenseNumber, setLicensenumber] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
@@ -60,15 +65,62 @@ export default function VolunteerSignUpForm() {
     const [policyNumber, setPolicyNumber] = useState('');
     const [policyExpiration, setPolicyExpiration] =useState('');
     const [subList, setSubList] = useState(false);
-    const [lastMinuteList, setLastMinuteList] = useState('');
+    const [lastMinuteList, setLastMinuteList] = useState(false);
     const [subPreferences, setSubPreferences] = useState('');
     //Signature info variables
     const [signature, setSignature] = useState('');
     const [signatureDate, setSignatureDate] = useState('');
+    const [userClassName, setUserClassName] = useState('');
+    const [contactClassName, setContactClassName] = useState('hidden');
+    const [personalClassName, setPersonalClassName] = useState('hidden');
+    const [emergencyClassName, setEmergencyClassName] = useState('hidden');
+    const [autoClassName, setAutoClassName] = useState('hidden');
+    const [referenceClassName, setReferenceClassName] = useState('hidden');
+    const [signatureClassName, setsignatureClassName] = useState('hidden');
+
+    const handleUserContinueButton = e => {
+        e.preventDefault();
+        setUserClassName('hidden');
+        setContactClassName('');
+    };
+
+    const handleContactContinueButton = e => {
+        e.preventDefault();
+        setContactClassName('hidden');
+        setPersonalClassName('');
+    };
+
+    const handlePersonalContinueButton = e => {
+        e.preventDefault();
+        setPersonalClassName('hidden')
+        setEmergencyClassName('');
+    };
+
+    const handleEmergencyContinueButton = e => {
+        e.preventDefault();
+        setEmergencyClassName('hidden');
+        setAutoClassName('');
+    };
+
+    const handleAutoContinueButton = e => {
+        e.preventDefault();
+        setAutoClassName('hidden');
+        setReferenceClassName('');
+    };
+
+    const handleReferenceContinueButton = e => {
+        e.preventDefault();
+        setReferenceClassName('hidden');
+        setsignatureClassName('');
+    };
+
+
 
     const handleVolunteerFormSubmit = e => {
         e.preventDefault();
-        const contactInfo = {
+        const volunteer = {
+            userName: userName,
+            password: password,
             name: name,
             nickname: nickname,
             maidenName: maidenName,
@@ -81,9 +133,7 @@ export default function VolunteerSignUpForm() {
             prefPhone: prefPhone,
             email: email,
             birthdate: birthdate,
-            newsletterPref: newsletterPref
-        }
-        const personalInfo = {
+            newsletterPref: newsletterPref,
             gender: gender,
             maritalStatus: maritalStatus,
             race: race,
@@ -92,17 +142,13 @@ export default function VolunteerSignUpForm() {
             employer: employer,
             retired: retired,
             military: military,
-            limitations: limitations
-        }
-        const emergencyInfo = {
+            limitations: limitations,
             emergencyContact: emergencyContact,
             emergencyRelationship: emergencyRelationship,
             emergencyAddress: emergencyAddress,
             emergencyHomePhone: emergencyHomePhone,
             emergencyCellPhone: emergencyCellPhone,
-            emergencyWorkPhone: emergencyWorkPhone
-        }
-        const references = {
+            emergencyWorkPhone: emergencyWorkPhone,
             refName1: refName1,
             refRelationship1: refRelationship1,
             refPhone1: refPhone1,
@@ -110,9 +156,7 @@ export default function VolunteerSignUpForm() {
             refName2: refName2,
             refRelationship2: refRelationship2,
             refPhone2: refPhone2,
-            refAddress2: refAddress2
-        }
-        const autoInfo = {
+            refAddress2: refAddress2,
             driver: driver,
             licenseNumber: licenseNumber,
             expirationDate: expirationDate,
@@ -121,68 +165,50 @@ export default function VolunteerSignUpForm() {
             policyExpiration: policyExpiration,
             subList: subList,
             lastMinuteList: lastMinuteList,
-            subPreferences: subPreferences
-        }
-        const signatureInfo = {
+            subPreferences: subPreferences,
             signatue: signature,
             signatureDate: signatureDate
         }
-        /*Promise.all([
-            fetch(`${apiUrl}/api/volunteers/contactInfo`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(contactInfo),
-            }),
-            fetch(`${apiUrl}/api/volunteers/personalInfo`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(personalInfo),
-            }),
-            fetch(`${apiUrl}/api/volunteer/emergencyContact`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(emergencyInfo),
-            }),
-            fetch(`${apiUrl}/api/volunteers/autoInfo`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(autoInfo),
-            }),
-            fetch(`${apiUrl}/api/volunteers/references`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(references),
-            }),
-            fetch(`${apiUrl}/api/volunteers/signature`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(signatureInfo),
-            })
-        ])
-        .then(([contactRes, personalRes, emergencyRes, autoRes, signatureRes]) => {
 
+        
+        /*fetch(`${apiUrl}/api/volunteers`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(volunteer),
+        })
+        .then((volunteerRes) => {
+            console.log('POST call attempted for volunteer submition');
+            console.log(volunteerRes);
         })*/
     }
 
     return(
         <Fragment>
             <VolunteerNavBar />
-            <form>    
-                <SectionBanner name='Volunteer Sign Up'/>
-                <SubBanner name='If you need help please give us a Call! (###)###-####'/>
+            <form>
+                <SubBanner 
+                    name='Please create a username and password below' 
+                    className={userClassName}/>
+                <UserInfo 
+                    className={userClassName}
+                    handleUserNameChange={userName => setUserName(userName)}
+                    handlePasswordChange={password => setPassword(password)}
+                />
+                <Button 
+                    name='continue' 
+                    onClick={e => handleUserContinueButton(e)}  
+                    className={userClassName}
+                />
+                <SectionBanner 
+                    name='Volunteer Sign Up' 
+                    className={contactClassName}/>
+                <SubBanner 
+                    name='If you need help please give us a Call! (###)###-####' 
+                    className={contactClassName}/>
                 <ContactInfo 
+                    className={contactClassName}
                     handleNameChange={name => setName(name)}
                     handleNickNameChange={nickname => setNickname(nickname)}
                     handleMaidenNameChange={maidenName => setMaidenName(maidenName)}
@@ -197,19 +223,31 @@ export default function VolunteerSignUpForm() {
                     handleBirthDateChange={birthdate => setBirthDate(birthdate)}
                     handleNewsletterPrefChange={newsletterPref => setNewsletterPref(newsletterPref)}
                 />
-                <PersonalInfo 
+                <Button 
+                    name='continue' 
+                    onClick={e => handleContactContinueButton(e)}  
+                    className={contactClassName}
+                />
+                <PersonalInfo
+                    className={personalClassName} 
                     handleGenderChange={gender => setGender(gender)}
                     handleMaritalStatusChange={maritalStatus => setMaritalStatus(maritalStatus)}
                     handleRaceChange={race => setRace(race)}
                     handleLanguageChange={language => setLanguage(language)}
                     language={language}
                     handleAdditionalLanguageChange={additionalLanguages => setAdditionalLanguages(additionalLanguages)}
-                    handleEmployerChanges={employer => setEmployer(employer)}
-                    handleRetiredChanges={retired => setRetired(retired)}
-                    handleMilitaryChanges={military => setMilitary(military)}
-                    handleLimitationsChanges={limitations => setLimitations(limitations)}
+                    handleEmployerChange={employer => setEmployer(employer)}
+                    handleRetiredChange={retired => setRetired(retired)}
+                    handleMilitaryChange={military => setMilitary(military)}
+                    handleLimitationsChange={limitations => setLimitations(limitations)}
+                />
+                <Button 
+                    name='continue' 
+                    onClick={e => handlePersonalContinueButton(e)}  
+                    className={personalClassName}
                 />
                 <EmergencyContact
+                    className={emergencyClassName}
                     handleEmergencyContactChange={emergencyContact => setEmergencyContact(emergencyContact)}
                     handleEmergencyRelationshipChange={emergencyRelationship => setEmergencyRelationship(emergencyRelationship)}
                     handleEmergencyAddressChange={emergencyAddress => setEmergencyAddress(emergencyAddress)}
@@ -217,7 +255,13 @@ export default function VolunteerSignUpForm() {
                     handleEmergencyCellPhoneChange={emergencyCellPhone => setEmergencyCellPhone(emergencyCellPhone)}
                     handleEmergencyWorkPhoneChange={emergencyWorkPhone => setEmergencyWorkPhone(emergencyWorkPhone)}
                 />
-                <AutoInfo 
+                <Button 
+                    name='continue' 
+                    onClick={e => handleEmergencyContinueButton(e)}  
+                    className={emergencyClassName}
+                />
+                <AutoInfo
+                    className={autoClassName} 
                     handleDriverChange={driver => setDriver(driver)}
                     driver={driver}
                     handleLicenseNumberChange={licenseNumber => setLicensenumber(licenseNumber)}
@@ -229,7 +273,13 @@ export default function VolunteerSignUpForm() {
                     handleLastMinuteListChange={lastMinuteList => setLastMinuteList(lastMinuteList)}
                     handleSubPreferencesChange={subPreferences => setSubPreferences(subPreferences)}
                 />
+                <Button 
+                    name='continue' 
+                    onClick={e => handleAutoContinueButton(e)}  
+                    className={autoClassName}
+                />
                 <References
+                    className={referenceClassName}
                     handleRefName1Change={refName1 => setRefName1(refName1)}
                     handleRefRelationship1Change={refRelationship1 => setRefRelationship1(refRelationship1)}
                     handleRefPhone1Change={refPhone1 => setRefPhone1(refPhone1)}
@@ -239,14 +289,21 @@ export default function VolunteerSignUpForm() {
                     handleRefPhone2Change={refPhone2 => setRefPhone2(refPhone2)}
                     handleRefAddress2Change={refAddress2 => setRefAddress2(refAddress2)}
                 />
+                <Button 
+                    name='continue' 
+                    onClick={e => handleReferenceContinueButton(e)}  
+                    className={referenceClassName}
+                />
                 <Signature
+                    className={signatureClassName}
                     handleSignatureChange={signature => setSignature(signature)}
                     handleSignatureDateChange={signatureDate => setSignatureDate(signatureDate)}
                 />
                 <Button 
+                    className={signatureClassName}
                     id='volunteerSubmitButton'
                     name='Submit'
-                    onSubmit={e => handleVolunteerFormSubmit(e)}
+                    onClick={e => handleVolunteerFormSubmit(e)}
                 />
             </form>
         </Fragment>

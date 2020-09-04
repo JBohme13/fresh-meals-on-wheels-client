@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import TextInput from '../../FormComponents/TextInput';
 import SelectInput from '../../FormComponents/SelectInput';
@@ -8,7 +8,7 @@ export default function AutoInfo(props) {
     const renderDriverForm = driver => {
         if (driver === 'true') {
             return(
-                <Fragment>
+                <section className={props.className}>
                         <TextInput
                             id='licesneNumber'
                             name="Driver's license number"
@@ -67,7 +67,7 @@ export default function AutoInfo(props) {
                             required={true}
                             onChange={e => props.handleSubPreferencesChange(e.target.value)}
                         />
-                    </Fragment>
+                    </section>
             )
         } else {
             return ''
@@ -75,7 +75,7 @@ export default function AutoInfo(props) {
     };
 
     return(
-        <Fragment>
+        <section className={props.className}>
             <SubBanner name='Driver Information' />
             <SelectInput
                 id='driverBoolean'
@@ -89,6 +89,6 @@ export default function AutoInfo(props) {
                 ]}
             />
             {renderDriverForm(props.driver)}
-        </Fragment>
+        </section>
     )
 }

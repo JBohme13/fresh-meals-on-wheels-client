@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import TextInput from '../../FormComponents/TextInput';
 
 export default function Signature(props) {
     return(
-        <Fragment>
+        <section className={props.className}>
             <SubBanner name='Acknowedgments/ signature' />
             <p>
                 In the interest of serving the homebound of Sheboygan County,
@@ -38,6 +38,6 @@ export default function Signature(props) {
                 required={true}
                 onChange={e => props.handleSignatureDateChange(e.target.value)}
             />
-        </Fragment>
+        </section>
     )
 }

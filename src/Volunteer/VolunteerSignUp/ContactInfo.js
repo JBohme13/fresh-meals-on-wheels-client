@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import TextInput from '../../FormComponents/TextInput';
 import SelectInput from '../../FormComponents/SelectInput';
 
 export default function ContactInfo(props) {
     return(
-        <Fragment>
+        <section className= {props.className}>
             <SubBanner name='Volunteer Information'/>
             <TextInput
                 id='name'
@@ -19,7 +19,7 @@ export default function ContactInfo(props) {
                 name='Prefered Name'
                 required={false}
                 placeholder=''
-                onChange={e => props.handleNicknameChange(e.target.value)}
+                onChange={e => props.handleNickNameChange(e.target.value)}
             />
             <TextInput
                 id='maidenName'
@@ -73,9 +73,9 @@ export default function ContactInfo(props) {
                 onChange={e => props.handlePrefPhoneChange(e.target.value)}
                 options={[
                     {name: '-Select one', value: ''},
-                    {name: 'Home Phone', value: 'homePhone'},
-                    {name: 'Cell Phone', value: 'cellPhone'}, 
-                    {name: 'Work Phone', value: 'workPhone'}
+                    {name: 'Home Phone', value: 'home'},
+                    {name: 'Cell Phone', value: 'cell'}, 
+                    {name: 'Work Phone', value: 'work'}
                 ]}
             />
             <TextInput
@@ -101,6 +101,6 @@ export default function ContactInfo(props) {
                     {name: 'US Mail', value: 'usMail'}
                 ]}
             />
-        </Fragment>
+        </section>
     )
 }

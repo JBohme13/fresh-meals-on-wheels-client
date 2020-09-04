@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import LabelBanner from '../../LayoutComponents/LabelBanner';
 import TextInput from '../../FormComponents/TextInput';
 
 export default function References(props) {
     return(
-        <Fragment>
+        <section className={props.className}>
             <SubBanner name='Please list two references' />
             <LabelBanner name='Reference 1' />
             <TextInput
@@ -57,6 +57,6 @@ export default function References(props) {
                required={true}
                onChange={e => props.handleRefAddress2Change(e.target.value)}
             />
-        </Fragment>
+        </section>
     )
 }

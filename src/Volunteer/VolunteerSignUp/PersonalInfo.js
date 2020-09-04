@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import TextInput from '../../FormComponents/TextInput';
 import TextArea from '../../FormComponents/TextArea';
@@ -7,7 +7,7 @@ import ExplainBox from '../../FormComponents/ExplainBox';
 
 export default function PersonalInfo(props) {
     return(
-        <Fragment>
+        <section className={props.className}>
             <SubBanner name='Personal Information' />
             <TextInput
                 id='gender'
@@ -93,6 +93,6 @@ export default function PersonalInfo(props) {
                 required={false}
                 onChange={e => props.handleLimitationsChange(e.target.value)}
             />
-        </Fragment>
+        </section>
     )
 }

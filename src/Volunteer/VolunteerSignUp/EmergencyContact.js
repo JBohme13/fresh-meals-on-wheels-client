@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SubBanner from '../../LayoutComponents/SubBanner';
 import TextInput from '../../FormComponents/TextInput';
 
 export default function EmergencyContact(props) {
     return(
-        <Fragment>
+        <section className={props.className}>
             <SubBanner name='Emergency Contact' />
             <TextInput
                 id='emergencyContact'
@@ -42,6 +42,6 @@ export default function EmergencyContact(props) {
                 required={false}
                 onChange={e => props.handleEmergencyWorkPhoneChange(e.target.value)}
             />
-        </Fragment>
+        </section>
     )
 }
